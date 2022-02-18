@@ -1,0 +1,10 @@
+{
+	"autodeskProduct":	"Fusion360",
+	"type":	"script",
+	"author":	"FredThx",
+	"description":	{
+		"":	"Export la face sélectionnée en dxf\t"
+	},
+	"supportedOS":	"windows|mac",
+	"editEnabled":	true
+}
