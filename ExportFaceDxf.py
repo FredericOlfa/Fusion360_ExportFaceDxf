@@ -9,19 +9,23 @@ def run(context):
     try:
         app = adsk.core.Application.get()
         ui  = app.userInterface
-        design = app.activeProduct
-        rootComp = design.rootComponent
-        sketches = rootComp.sketches
+        design = app.activeProduct # Active Design
+        rootComp = design.rootComponent #Root component
+        sketches = rootComp.sketches #Sketches collection
+
+        #create list of selected faces
         faces = []
         for seln in ui.activeSelections:
             if isinstance(seln.entity, adsk.fusion.BRepFace):
                 faces.append(seln.entity)
         if faces:
+            #Ask for a path to export dxf files
             folderdlg = ui.createFolderDialog()
             folderdlg.title = 'Please select a folder to save dxf files:'
-            res = folderdlg.showDialog()
-            if res == adsk.core.DialogResults.DialogOK:
+            reponse = folderdlg.showDialog()
+            if reponse == adsk.core.DialogResults.DialogOK:
                 folder = folderdlg.folder
+                #create one sketch by face, export it in dxf and delete it
                 for face in faces:
                     dxf_sketch = sketches.add(face)
                     fullpath = os.path.join(folder, face.body.name)
